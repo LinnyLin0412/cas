@@ -56,7 +56,9 @@ public class RestAuditTrailManagerTests {
         try (val webServer = new MockWebServer(9296,
             new ByteArrayResource(data.getBytes(StandardCharsets.UTF_8), "REST Output"), MediaType.APPLICATION_JSON_VALUE)) {
             webServer.start();
-            r.record(audit);
+            do {
+                Thread.sleep(100);
+            } while (!webServer.isRunning());
             assertFalse(r.getAuditRecordsSince(LocalDate.now().minusDays(2)).isEmpty());
         } catch (final Exception e) {
             throw new AssertionError(e.getMessage(), e);

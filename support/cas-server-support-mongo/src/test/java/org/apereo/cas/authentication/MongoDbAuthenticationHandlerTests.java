@@ -70,7 +70,7 @@ import static org.junit.Assert.*;
         RefreshAutoConfiguration.class})
 @EnableScheduling
 @TestPropertySource(properties = {
-    "cas.authn.mongo.mongoHostUri=mongodb://root:secret@localhost:27017/users",
+    "cas.authn.mongo.mongoHostUri=mongodb://root:secret@localhost:27017",
     "cas.authn.mongo.attributes=loc,state",
     "cas.authn.pac4j.typedIdUsed=false"
     })

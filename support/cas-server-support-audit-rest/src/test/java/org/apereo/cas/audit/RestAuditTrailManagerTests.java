@@ -45,10 +45,6 @@ public class RestAuditTrailManagerTests {
 
     @Test
     public void verifyAction() throws Exception {
-        val props = new AuditRestProperties();
-        props.setUrl("http://localhost:9296");
-        val r = new RestAuditTrailManager(props);
-        r.setAsynchronous(false);
 
         val audit = new AuditActionContext("casuser", "resource", "action",
             "CAS", new Date(), "123.456.789.000", "123.456.789.000");
@@ -56,9 +52,11 @@ public class RestAuditTrailManagerTests {
         try (val webServer = new MockWebServer(9296,
             new ByteArrayResource(data.getBytes(StandardCharsets.UTF_8), "REST Output"), MediaType.APPLICATION_JSON_VALUE)) {
             webServer.start();
-            do {
-                Thread.sleep(500);
-            } while (!webServer.isRunning());
+            val props = new AuditRestProperties();
+            props.setUrl("http://localhost:9296");
+            val r = new RestAuditTrailManager(props);
+            r.setAsynchronous(false);
+
             assertFalse(r.getAuditRecordsSince(LocalDate.now().minusDays(2)).isEmpty());
         } catch (final Exception e) {
             throw new AssertionError(e.getMessage(), e);

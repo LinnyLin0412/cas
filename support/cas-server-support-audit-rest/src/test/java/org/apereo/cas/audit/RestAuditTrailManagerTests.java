@@ -57,7 +57,7 @@ public class RestAuditTrailManagerTests {
             new ByteArrayResource(data.getBytes(StandardCharsets.UTF_8), "REST Output"), MediaType.APPLICATION_JSON_VALUE)) {
             webServer.start();
             do {
-                Thread.sleep(100);
+                Thread.sleep(500);
             } while (!webServer.isRunning());
             assertFalse(r.getAuditRecordsSince(LocalDate.now().minusDays(2)).isEmpty());
         } catch (final Exception e) {

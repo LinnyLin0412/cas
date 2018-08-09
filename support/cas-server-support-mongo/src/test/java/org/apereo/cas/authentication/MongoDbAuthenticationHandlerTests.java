@@ -93,6 +93,7 @@ public class MongoDbAuthenticationHandlerTests {
     @Before
     public void initialize() {
         val profile = new MongoProfile();
+        profile.setId("CASUSER");
         profile.addAttributes(CollectionUtils.wrap("loc", "test", "state", "passing", "username", "u1"));
         mongoProfileService.create(profile, "p1");
 
